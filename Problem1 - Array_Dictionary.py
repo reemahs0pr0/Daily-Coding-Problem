@@ -12,8 +12,6 @@ def check_addup(arr, k):
         if num not in dict:
             dict[num] = 1
             dict[k-num] = 0
-        elif dict[num] != 0:
-            dict[num] += 1
         elif dict[num] == 0:
             return "%s and %s added up to %s" % (k-num, num, k)
     return "No numbers added up to %s" % k

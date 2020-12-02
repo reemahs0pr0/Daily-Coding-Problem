@@ -18,10 +18,14 @@ integer1 = 1
 for i in range(len(arr1)):
     if arr1[i] == integer1:
         integer1 += 1
+    if arr1[i] > integer1:
+        break
 print(integer1)
 
 integer2 = 1
 for i in range(len(arr2)):
     if arr2[i] == integer2:
         integer2 += 1
+    if arr2[i] > integer2:
+        break
 print(integer2)

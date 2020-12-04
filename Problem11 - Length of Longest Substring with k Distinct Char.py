@@ -3,40 +3,28 @@
 # For example, given s = "abcba" and k = 2, the longest substring with 
 # k distinct characters is "bcb".
 
-import collections
-
 def longest_substring(s, k):
-    chars = collections.deque([])
+    chars = []
     results = []
     substring = ""
     for c in range(len(s)):
         if s[c] in chars:
-            if chars[len(chars)-1] != s[c]:
-                chars.append(s[c])
-                if len(chars) == k+1:
-                    chars.popleft()
+            chars.remove(s[c])
+            chars.append(s[c])
             substring += s[c]
-            if c == len(s)-1:
-                results, substring = \
-                    update_results(results, substring)
         else:
             if len(chars) != k:
                 chars.append(s[c])
                 substring += s[c]
             else:
                 results, substring = \
-                    update_results(results, substring)     
-                chars.append(s[c])
-                chars.popleft()
-                substring += s[c]
-                for i in range(len(substring)-1, -1, -1):
-                    if substring[i] not in chars:
-                        substring = substring[i+1:]
-                        break
-                if c == len(s)-1:
-                    results, substring = \
-                        update_results(results, substring) 
-    return results
+                    update_results(results, substring) 
+                chars, substring = \
+                    update_substring(chars, s[c], substring)
+        if c == len(s)-1:
+            results, substring = \
+                update_results(results, substring)
+    return results if len(chars) == k else None
 
 def update_results(results, substring):
     if len(results) == 0:
@@ -49,7 +37,17 @@ def update_results(results, substring):
             results.append(substring)
     return results, substring
 
-s = "abcba"
-k = 2
+def update_substring(chars, char, substring):
+    chars.remove(chars[0])
+    chars.append(char)
+    substring += char
+    for i in range(len(substring)-1, -1, -1):
+        if substring[i] not in chars:
+            substring = substring[i+1:]
+            break
+    return chars, substring
+
+s = "aaabbbaaaaacd"
+k = 5
 
 print(longest_substring(s, k))

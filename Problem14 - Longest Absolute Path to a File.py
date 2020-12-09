@@ -31,17 +31,44 @@
 # The name of a file contains at least a period and an extension.
 # The name of a directory or sub-directory will not contain a period.
 
-string = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"
-string_arr = string.split("\n")
-print(string_arr)
+class Node:
+    path = ""
+    def __init__(self, name, level=1, sub=None):
+        self.path = name
+        self.sub = sub
+        self.level = level
+        if name[-4:] == ".ext" and len(self.path) > len(Node.path):
+            Node.path = self.path
+    def add(self, name, level):
+        if self.sub is None or self.sub.level == level:
+            self.sub = Node(self.path + "/" + name, level)
+        else:
+            self.sub.add(name, level)
+    def longest_path(self):
+        return Node.path
+
+string = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\t\t\tsubsubsubdir1\n\t\t\t\tfile1_1.ext\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"
+print(string)
+print()
+string = string.replace("\t", " ")
+substring_arr = string.split("\n")
 name_arr = []
-for name in string_arr:
-    name_arr.append(name.strip("\t"))
-print(name_arr)
-
-#tbc
-
-
+for substring in substring_arr:
+    name_arr.append(substring.strip())
+           
+for i in range(len(substring_arr)):
+    current_level = 1
+    if i == 0:
+        folder = Node(name_arr[i], current_level)
+    else:
+        for j in range(0, len(substring_arr[i])):
+            if substring_arr[i][j] == " ":
+                current_level += 1
+            else:
+                folder.add(name_arr[i], current_level)
+                break
+            
+print(folder.longest_path())    
 
 
 

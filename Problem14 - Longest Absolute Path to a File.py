@@ -69,14 +69,3 @@ for i in range(len(substring_arr)):
                 break
             
 print(folder.longest_path())    
-
-
-
-
-
-
-
-
-
-
-

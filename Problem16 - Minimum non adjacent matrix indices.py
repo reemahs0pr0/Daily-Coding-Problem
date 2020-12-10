@@ -6,12 +6,17 @@
 # cost which achieves this goal.
 
 import numpy as np
+import math
 
 N = 5
 K = 5
 
-matrix = np.random.random((N,K)) * 10
+matrix = np.random.random((N,K)) * 100
+for i in range(N):
+    for j in range(K):
+        matrix[i][j] = math.ceil(matrix[i][j])
 print(matrix)
+
 house_dict = {}
 
 for i in range(N):
@@ -35,6 +40,7 @@ prev_color = 0
 color = 0
 min_cost = 0
 alt_min_cost = 0
+print()
 
 for i in range(N):
     prev_color = color
@@ -47,16 +53,18 @@ for i in range(N):
                        min(house_dict[i+1]))
         maximum = max(min_cost + second_min(house_dict[i+1]), 
                            alt_min_cost + min(house_dict[i+1]))
-        min_cost = minimum
-        alt_min_cost = maximum
         if minimum == min_cost + second_min(house_dict[i+1]):
             color = get_index(house_dict[i+1], second_min(house_dict[i+1]))
+        min_cost = minimum
+        alt_min_cost = maximum
     else:
-        min_cost += min(house_dict[i+1])
         if get_index(house_dict[i+1], second_min(house_dict[i+1])) != prev_color:
             alt_min_cost = min_cost + second_min(house_dict[i+1])
         else:
             alt_min_cost = alt_min_cost + second_min(house_dict[i+1])
-
+        min_cost += min(house_dict[i+1])
+    print("Min Cost = $" + str(min_cost))
+    print("Alt Min Cost = $" + str(alt_min_cost))
+    
 print()
-print(min_cost)
+print("Minimum cost to build the nth house with kth color = $" + str(min_cost))

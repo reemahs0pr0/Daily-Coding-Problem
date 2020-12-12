@@ -33,4 +33,9 @@ for i in range(len(arr)):
             rooms.append([arr[i]])
             min_room += 1
 
-print(min_room)
+for i in range(min_room):
+    rooms[i].sort()
+    print("Room " + str(i+1) + ": " + str(rooms[i]))
+
+print()
+print("Minimum number of rooms = " + str(min_room))

@@ -7,6 +7,7 @@
 # Given the input [3, 0, 1, 3, 0, 5], we can hold 3 units in the first index,
 # 2 in the second, and 3 in the fourth index (we cannot hold 5 since it would 
 # run off to the left), so we can trap 8 units of water.
+
 import numpy as np
 
 walls = [9, 10, 7, 0, 1, 4, 2, 2, 10]

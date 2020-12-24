@@ -14,6 +14,7 @@ walls = [9, 10, 7, 0, 1, 4, 2, 2, 10]
 unit = 0
 start = False
 prev_walls = walls.copy()
+print(walls)
 
 def fillup(arr, start, end):
     minimum = min(arr[start], arr[end])

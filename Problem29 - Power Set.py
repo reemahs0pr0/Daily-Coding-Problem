@@ -18,8 +18,9 @@ for i in range(len(l)+1):
             d[j] = val + l[i-1:i]
             key += 1
 
-power_sets = []
+power_sets = [{}]
 for subset in d.values():
     power_sets.append(set(subset))
+power_sets.pop(1)
     
-print(power_sets[1:])
+print(power_sets)

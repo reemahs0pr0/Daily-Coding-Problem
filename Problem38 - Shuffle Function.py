@@ -8,14 +8,15 @@
 import random
 
 def shuffle(deck):
-    for card in deck:
+    for i in range(len(deck)):
         swap_with_index = random.randint(0, 51)
-        temp = card
-        card = deck[swap_with_index]
+        temp = deck[i]
+        deck[i] = deck[swap_with_index]
         deck[swap_with_index] = temp
 
 deck = []
 for i in range(1, 53):
     deck.append(i)
+
 shuffle(deck)
 print(deck)
